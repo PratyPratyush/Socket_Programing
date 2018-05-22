@@ -1,0 +1,29 @@
+from socket import *
+
+s=socket(AF_INET,SOCK_DGRAM)
+s1=socket(AF_INET,SOCK_DGRAM)
+host = '127.0.0.1'
+sp=5000
+cp=5001
+sp1=6000
+cp1=6001
+s.bind(host,cp)
+s1.bind(host,cp1)
+t='c'
+
+while t=='c':
+	data,addr=s.recvfrom(1024)
+	print data,"address is -- ",addr
+	#------------------------------
+	msg=raw_input("Enter your message:  ")
+	s1.sendto(msg,(host,sp1))
+	#---------------------------
+	data,addr=s1.recvfrom(1024)
+	print data,'address----',addr
+	#--------------------------
+	dat,addr=s.recvfrom(1024)
+	t=dat
+	
+	
+s.close()
+s1.close()
